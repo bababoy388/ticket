@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Билет - Городской Транспорт</title>
+    <!-- Telegram Web App SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-text-color, #000000);
+            min-height: 100vh;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .ticket-container {
+            width: 100%;
+            max-width: 360px;
+            margin: auto;
+        }
+
+        .row-block {
+            margin-bottom: 18px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--tg-theme-section-bg-color, #e5e5ea);
+        }
+
+        .row-block .label {
+            font-size: 14px;
+            color: var(--tg-theme-hint-color, #8e8e93);
+            margin-bottom: 4px;
+        }
+
+        .row-block .carrier-value {
+            color: var(--tg-theme-link-color, #2481cc);
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .row-block .route-number {
+            color: var(--tg-theme-text-color, #000000);
+            font-size: 20px;
+            font-weight: 600;
+            font-family: monospace;
+            letter-spacing: 2px;
+        }
+
+        .ticket {
+            background-color: var(--tg-theme-secondary-bg-color, #f2f2f7);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .header {
+            background-color: var(--tg-theme-button-color, #2481cc);
+            color: var(--tg-theme-button-text-color, #ffffff);
+            padding: 20px 16px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .header .duration {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .ticket-number {
+            background-color: var(--tg-theme-bg-color, #ffffff);
+            padding: 24px 16px;
+            text-align: center;
+            border-bottom: 1px dashed var(--tg-theme-hint-color, #8e8e93);
+        }
+
+        .number {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--tg-theme-text-color, #000000);
+            margin-bottom: 4px;
+            word-spacing: 4px;
+        }
+
+        .control {
+            font-size: 16px;
+            color: var(--tg-theme-hint-color, #8e8e93);
+            font-weight: 500;
+        }
+
+        .details {
+            padding: 20px 16px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--tg-theme-section-bg-color, #e5e5ea);
+        }
+
+        .row:last-of-type {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .label {
+            font-size: 14px;
+            color: var(--tg-theme-hint-color, #8e8e93);
+            width: 40%;
+        }
+
+        .value {
+            font-size: 16px;
+            color: var(--tg-theme-text-color, #000000);
+            font-weight: 500;
+            width: 60%;
+            text-align: right;
+        }
+
+        .carrier-value {
+            color: var(--tg-theme-link-color, #2481cc);
+            font-size: 17px;
+        }
+
+        .route {
+            font-size: 17px;
+            line-height: 1.4;
+        }
+
+        .qr-section {
+            text-align: center;
+            margin: 20px 0;
+            padding: 16px;
+            background-color: var(--tg-theme-bg-color, #ffffff);
+            border-radius: 12px;
+        }
+
+        .qr-label {
+            font-size: 14px;
+            color: var(--tg-theme-hint-color, #8e8e93);
+            margin-bottom: 8px;
+        }
+
+        .qr-code {
+            font-family: monospace;
+            font-size: 20px;
+            letter-spacing: 2px;
+            padding: 12px;
+            background-color: var(--tg-theme-secondary-bg-color, #f2f2f7);
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .price {
+            color: var(--tg-theme-destructive-text-color, #ff3b30);
+            font-size: 18px;
+        }
+
+        .date-time {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .date-time .label,
+        .date-time .value {
+            width: auto;
+            text-align: left;
+        }
+
+        .date-time > div {
+            width: 48%;
+        }
+
+        .close-btn {
+            background-color: #ff3b30;
+            color: #ffffff;
+            border: none;
+            width: 100%;
+            padding: 18px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: opacity 0.2s;
+            margin-top: 8px;
+}
+
+        .close-btn:active {
+            opacity: 0.8;
+        }
+
+        .timer {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 14px;
+            color: var(--tg-theme-hint-color, #8e8e93);
+        }
+
+        .timer-value {
+            font-weight: 600;
+            color: var(--tg-theme-text-color, #000000);
+        }
+
+        /* Анимация для таймера */
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        .timer.pulse {
+            animation: pulse 1s infinite;
+        }
+
+        /* Стили для Telegram */
+        .tg-back-button {
+            display: none;
+        }
+
+        /* Адаптация под разные размеры экрана */
+        @media (max-width: 400px) {
+            .ticket-container {
+                max-width: 100%;
+            }
+
+            .number {
+                font-size: 28px;
+                letter-spacing: 1px;
+            }
+
+            .qr-code {
+                font-size: 18px;
+                letter-spacing: 1px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="ticket-container">
+    <div class="ticket">
+        <div class="header">
+            <h1>Городской Транспорт</h1>
+            <div class="duration">Действует: <span id="timer">13</span> сек.</div>
+        </div>
+
+        <div class="ticket-number">
+            <div class="number">1 320 380 863</div>
+            <div class="control">Контроль</div>
+        </div>
+
+        <div class="details">
+            <div class="row-block">
+                <div class="label">Перевозчик</div>
+                <div class="carrier-value">000 "СКАД"</div>
+            </div>
+
+            <div class="row-block">
+                <div class="label">Междугородный автовокзал - В.Базаика</div>
+                <div class="route-number">x164kx124</div>
+            </div>
+
+            <div class="row">
+                <div class="label">Стоимость</div>
+                <div class="value price">1 шт., Полный, 48.00 ₽</div>
+            </div>
+
+            <div class="row date-time">
+                <div>
+                    <div class="label">Дата покупки</div>
+                    <div class="value">01 декабря 2025 г.</div>
+                </div>
+                <div>
+                    <div class="label">Время покупки</div>
+                    <div class="value">20:40</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="close-btn" id="closeButton">ЗАКРЫТЬ</button>
+</div>
+
+    <script>
+        // Инициализация Telegram Web App
+        const tg = window.Telegram.WebApp;
+
+        // Расширяем приложение на весь экран
+        tg.expand();
+
+        // Устанавливаем цветовую схему
+        document.documentElement.style.setProperty('--tg-theme-bg-color', tg.themeParams.bg_color || '#ffffff');
+        document.documentElement.style.setProperty('--tg-theme-text-color', tg.themeParams.text_color || '#000000');
+        document.documentElement.style.setProperty('--tg-theme-hint-color', tg.themeParams.hint_color || '#8e8e93');
+        document.documentElement.style.setProperty('--tg-theme-link-color', tg.themeParams.link_color || '#2481cc');
+        document.documentElement.style.setProperty('--tg-theme-button-color', tg.themeParams.button_color || '#2481cc');
+        document.documentElement.style.setProperty('--tg-theme-button-text-color', tg.themeParams.button_text_color || '#ffffff');
+        document.documentElement.style.setProperty('--tg-theme-secondary-bg-color', tg.themeParams.secondary_bg_color || '#f2f2f7');
+
+        // Инициализация таймера
+        let timeLeft = 15;
+        const timerElement = document.getElementById('timer');
+        const timerValueElement = document.getElementById('timerValue');
+
+        const countdown = setInterval(() => {
+            timeLeft--;
+            timerElement.textContent = timeLeft;
+            timerValueElement.textContent = timeLeft;
+
+            // Когда время вышло, закрываем приложение
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                tg.close();
+            }
+        }, 1000);
+
+        // Обработка кнопки закрытия
+        document.getElementById('closeButton').addEventListener('click', function() {
+            tg.close();
+        });
+
+        // Обработка кнопки "Назад" в Telegram
+        tg.BackButton.onClick(function() {
+            tg.close();
+        });
+
+        // Показываем кнопку "Назад" в Telegram
+        tg.BackButton.show();
+
+        // Отправляем событие о показе билета
+        tg.ready();
+    </script>
+</body>
+</html>
