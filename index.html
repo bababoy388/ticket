@@ -372,11 +372,11 @@
 
                     <div class="row-block">
                         <div class="label">Дата покупки</div>
-                        <div class="route-number">01 декабря 2025 г.</div>
+                        <div class="route-number" id="date_buy">01 декабря 2025 г.</div>
                     </div>
                     <div class="row-block">
                         <div class="label">Время покупки</div>
-                        <div class="route-number">20:40</div>
+                        <div class="route-number" id="time_buy">20:40</div>
                     </div>
                 </div>
             </div>
@@ -396,7 +396,9 @@
             const params = new URLSearchParams(window.location.search);
             return {
                 arg1: params.get('arg1') || 'не указан',
-                arg2: params.get('arg2') || 'не указан'
+                arg2: params.get('arg2') || 'не указан',
+                date_buy: params.get('date_buy') || 'не указан',
+                time_buy: params.get('time_buy') || 'не указан'
             };
         }
 
@@ -404,6 +406,8 @@
         const queryParams = getQueryParams();
         const routeNumber = queryParams.arg1; // номер маршрута автобуса
         const busNumber = queryParams.arg2;   // номер автобуса
+        const date_buy = queryParams.date_buy;   // дата покупки
+        const time_buy = queryParams.time_buy;   // время покупки
 
         // Инициализация Telegram Web App
         const tg = window.Telegram.WebApp;
@@ -423,6 +427,8 @@
         // Подставляем полученные параметры в нужные места
         document.getElementById('route').textContent = `${routeNumber}`;
         document.getElementById('bus').textContent = `${busNumber}`;
+        document.getElementById('date_buy').textContent = `${date_buy}`;
+        document.getElementById('time_buy').textContent = `${time_buy}`;
 
         // Инициализация таймера
         let timeLeft = 15;
