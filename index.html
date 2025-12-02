@@ -324,10 +324,10 @@
 
         <div class="tab-content">
             <div class="tab-pane active" id="number-tab">
-                <div class="ticket-number">1 320 380 863</div>
+                <div class="ticket-number" id="ticketNumber">1 320 380 863</div>
             </div>
             <div class="tab-pane" id="control-tab">
-                <div class="control-code">Контрольный код</div>
+                <div class="control-code" id="controlCode">Контрольный код</div>
             </div>
         </div>
         </div>
@@ -339,8 +339,8 @@
             </div>
 
             <div class="row-block">
-                <div class="label">Междугородный автовокзал - В.Базаика</div>
-                <div class="route-number">x164kx124</div>
+                <div class="label">Маршрут</div>
+                <div class="route-number" id="routeInfo">x164kx124</div>
             </div>
 
             <div class="row-block">
@@ -362,6 +362,20 @@
 </div>
 
     <script>
+        // Функция для парсинга GET-параметров
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                arg1: params.get('arg1') || 'не указан',
+                arg2: params.get('arg2') || 'не указан'
+            };
+        }
+
+        // Получаем параметры из URL
+        const queryParams = getQueryParams();
+        const routeNumber = queryParams.arg1; // номер маршрута автобуса
+        const busNumber = queryParams.arg2;   // номер автобуса
+
         // Инициализация Telegram Web App
         const tg = window.Telegram.WebApp;
 
@@ -377,15 +391,25 @@
         document.documentElement.style.setProperty('--tg-theme-button-text-color', tg.themeParams.button_text_color || '#ffffff');
         document.documentElement.style.setProperty('--tg-theme-secondary-bg-color', tg.themeParams.secondary_bg_color || '#f2f2f7');
 
+        // Подставляем полученные параметры в нужные места
+        document.getElementById('routeInfo').textContent = `Маршрут ${routeNumber}, Автобус ${busNumber}`;
+
+        // Также можно использовать параметры для генерации номера билета или контрольного кода
+        // Например, создать номер билета на основе параметров
+        const ticketNumber = `1 ${routeNumber.padStart(3, '0')} ${busNumber.padStart(3, '0')} 863`;
+        document.getElementById('ticketNumber').textContent = ticketNumber;
+
+        // Генерируем контрольный код на основе параметров
+        const controlCode = `${routeNumber}-${busNumber}-${Date.now().toString().slice(-4)}`;
+        document.getElementById('controlCode').textContent = controlCode;
+
         // Инициализация таймера
         let timeLeft = 15;
         const timerElement = document.getElementById('timer');
-        const timerValueElement = document.getElementById('timerValue');
 
         const countdown = setInterval(() => {
             timeLeft--;
             timerElement.textContent = timeLeft;
-            timerValueElement.textContent = timeLeft;
 
             // Когда время вышло, закрываем приложение
             if (timeLeft <= 0) {
@@ -406,6 +430,20 @@
 
         // Показываем кнопку "Назад" в Telegram
         tg.BackButton.show();
+
+        // Обработка переключения табов
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Убираем активный класс у всех табов
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+
+                // Добавляем активный класс текущему табу
+                tab.classList.add('active');
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+            });
+        });
 
         // Отправляем событие о показе билета
         tg.ready();
