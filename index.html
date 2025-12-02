@@ -18,10 +18,40 @@
             background-color: var(--tg-theme-bg-color, #ffffff);
             color: var(--tg-theme-text-color, #000000);
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Верхняя часть - фон для билета */
+        .ticket-background {
+            background-color: var(--tg-theme-secondary-bg-color, #f2f2f7);
+            width: 100%;
+            flex: 1;
             padding: 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+
+        /* Нижняя часть - темный фон под кнопкой */
+        .button-section {
+            background-color: rgba(0, 0, 0, 0.05);
+            width: 100%;
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Для темной темы Telegram */
+        @media (prefers-color-scheme: dark) {
+            .ticket-background {
+                background-color: var(--tg-theme-secondary-bg-color, #1c1c1e);
+            }
+            .button-section {
+                background-color: rgba(255, 255, 255, 0.05);
+            }
         }
 
         .tabs-container {
@@ -83,7 +113,6 @@
             margin: auto;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
         }
 
         .row-block {
@@ -119,7 +148,6 @@
             overflow: visible;
             box-shadow: none;
             margin-bottom: 0;
-            flex: 1;
         }
 
         .header {
@@ -248,39 +276,20 @@
             width: 48%;
         }
 
-        /* Фон под кнопкой - растянутый до границ экрана */
-        .button-background {
-            background-color: rgba(0, 0, 0, 0.05);
-            border-radius: 0;
-            padding: 20px 16px;
-            margin-top: auto;
-            margin-left: -16px; /* Растягиваем влево за границы контейнера */
-            margin-right: -16px; /* Растягиваем вправо за границы контейнера */
-            width: calc(100% + 32px); /* Компенсируем растяжение */
-            margin-bottom: -16px; /* Компенсируем padding body снизу */
-        }
-
-        /* Для темной темы Telegram */
-        @media (prefers-color-scheme: dark) {
-            .button-background {
-                background-color: rgba(255, 255, 255, 0.05);
-            }
-        }
-
-        /* Кнопка внутри растянутого фона */
+        /* Красная кнопка */
         .close-btn {
             background-color: #ff3b30 !important;
             color: #ffffff !important;
             border: none;
             width: 100%;
-            max-width: 360px; /* Ограничиваем ширину самой кнопки */
+            max-width: 360px;
             padding: 12px;
             font-size: 16px;
             font-weight: 500;
             cursor: pointer;
             border-radius: 10px;
             transition: opacity 0.2s;
-            margin: 0 auto; /* Центрируем кнопку внутри растянутого фона */
+            margin: 0;
             display: block;
         }
 
@@ -322,67 +331,64 @@
                 max-width: 100%;
             }
 
-            .button-background {
-                margin-left: 0;
-                margin-right: 0;
-                width: 100%;
-                padding-left: 0;
-                padding-right: 0;
-            }
-
             .close-btn {
-                border-radius: 0;
+                border-radius: 10px;
                 max-width: 100%;
             }
         }
     </style>
 </head>
 <body>
-<div class="ticket-container">
-    <div class="ticket">
-        <div class="header">
-            <h1>Действует: <span id="timer">13</span> сек.</h1>
-        </div>
+    <!-- Верхняя часть - фон для билета -->
+    <div class="ticket-background">
+        <div class="ticket-container">
+            <div class="ticket">
+                <div class="header">
+                    <h1>Действует: <span id="timer">13</span> сек.</h1>
+                </div>
 
-        <div class="tabs-container">
-            <div class="tabs">
-                <button class="tab active" data-tab="number">1 326 741 863</button>
-                <button class="tab" data-tab="control">Контроль</button>
-            </div>
-        </div>
+                <div class="tabs-container">
+                    <div class="tabs">
+                        <button class="tab active" data-tab="number">1 326 741 863</button>
+                        <button class="tab" data-tab="control">Контроль</button>
+                    </div>
+                </div>
 
-        <div class="details">
-            <div class="row-block">
-                <div class="label">Перевозчик</div>
-                <div class="route-number">ООО "СКАД"</div>
-            </div>
+                <div class="details">
+                    <div class="row-block">
+                        <div class="label">Перевозчик</div>
+                        <div class="route-number">ООО "СКАД"</div>
+                    </div>
 
-            <div class="row-block">
-                <div class="label">Маршрут</div>
-                <div class="route-number" id="routeInfo">x164kx124</div>
-            </div>
+                    <div class="row-block">
+                        <div class="label">Маршрут</div>
+                        <div class="route-number" id="routeInfo">x164kx124</div>
+                    </div>
 
-            <div class="row-block">
-                <div class="label">Стоимость</div>
-                <div class="route-number">1 шт., Полный, 48.00 ₽</div>
-            </div>
+                    <div class="row-block">
+                        <div class="label">Стоимость</div>
+                        <div class="route-number">1 шт., Полный, 48.00 ₽</div>
+                    </div>
 
-            <div class="row-block">
-                <div class="label">Дата покупки</div>
-                <div class="route-number">01 декабря 2025 г.</div>
-            </div>
-            <div class="row-block">
-                <div class="label">Время покупки</div>
-                <div class="route-number">20:40</div>
+                    <div class="row-block">
+                        <div class="label">Дата покупки</div>
+                        <div class="route-number">01 декабря 2025 г.</div>
+                    </div>
+                    <div class="row-block">
+                        <div class="label">Время покупки</div>
+                        <div class="route-number">20:40</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Добавлен фон под кнопкой - растянутый до границ -->
-    <div class="button-background">
-        <button class="close-btn" id="closeButton">ЗАКРЫТЬ</button>
+    <!-- Нижняя часть - темный фон под кнопкой -->
+    <div class="button-section">
+        <div class="ticket-container">
+            <button class="close-btn" id="closeButton">ЗАКРЫТЬ</button>
+        </div>
     </div>
-</div>
 
     <script>
         // Функция для парсинга GET-параметров
