@@ -25,8 +25,8 @@
         }
 
         .tabs-container {
-    background-color: var(--tg-theme-bg-color, #ffffff);
-    border-bottom: 1px dashed var(--tg-theme-hint-color, #8e8e93);
+            background-color: var(--tg-theme-secondary-bg-color, #f2f2f7);
+            border-bottom: 1px dashed var(--tg-theme-hint-color, #8e8e93);
         }
 
         .tabs {
@@ -120,10 +120,11 @@
         }
 
         .header {
-            background-color: var(--tg-theme-button-color, #2481cc);
-            color: var(--tg-theme-button-text-color, #ffffff);
+            background-color: var(--tg-theme-secondary-bg-color, #f2f2f7);
+            color: var(--tg-theme-text-color, #000000);
             padding: 20px 16px;
             text-align: center;
+            border-bottom: 1px dashed var(--tg-theme-hint-color, #8e8e93);
         }
 
         .header h1 {
@@ -250,11 +251,11 @@
             color: #ffffff;
             border: none;
             width: 100%;
-            padding: 18px;
-            font-size: 17px;
+            padding: 12px;
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            border-radius: 12px;
+            border-radius: 10px;
             transition: opacity 0.2s;
             margin-top: 8px;
 }
@@ -318,24 +319,16 @@
 
         <div class="tabs-container">
     <div class="tabs">
-        <button class="tab active" data-tab="number">Номер</button>
+        <button class="tab active" data-tab="number">1 326 741 863</button>
         <button class="tab" data-tab="control">Контроль</button>
     </div>
 
-        <div class="tab-content">
-            <div class="tab-pane active" id="number-tab">
-                <div class="ticket-number" id="ticketNumber">1 320 380 863</div>
-            </div>
-            <div class="tab-pane" id="control-tab">
-                <div class="control-code" id="controlCode">Контрольный код</div>
-            </div>
-        </div>
         </div>
 
         <div class="details">
             <div class="row-block">
                 <div class="label">Перевозчик</div>
-                <div class="carrier-value">000 "СКАД"</div>
+                <div class="route-number">000 "СКАД"</div>
             </div>
 
             <div class="row-block">
@@ -345,16 +338,16 @@
 
             <div class="row-block">
                 <div class="label">Стоимость</div>
-                <div class="carrier-value">1 шт., Полный, 48.00 ₽</div>
+                <div class="route-number">1 шт., Полный, 48.00 ₽</div>
             </div>
 
             <div class="row-block">
                 <div class="label">Дата покупки</div>
-                <div class="carrier-value">01 декабря 2025 г.</div>
+                <div class="route-number">01 декабря 2025 г.</div>
             </div>
                 <div class="row-block">
                     <div class="label">Время покупки</div>
-                    <div class="carrier-value">20:40</div>
+                    <div class="route-number">20:40</div>
                 </div>
         </div>
     </div>
@@ -392,7 +385,7 @@
         document.documentElement.style.setProperty('--tg-theme-secondary-bg-color', tg.themeParams.secondary_bg_color || '#f2f2f7');
 
         // Подставляем полученные параметры в нужные места
-        document.getElementById('routeInfo').textContent = `Маршрут ${routeNumber}, Автобус ${busNumber}`;
+        document.getElementById('routeInfo').textContent = `Маршрут ${routeNumber}, ${busNumber}`;
 
         // Также можно использовать параметры для генерации номера билета или контрольного кода
         // Например, создать номер билета на основе параметров
