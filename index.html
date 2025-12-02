@@ -24,6 +24,59 @@
             align-items: center;
         }
 
+        .tabs-container {
+    background-color: var(--tg-theme-bg-color, #ffffff);
+    border-bottom: 1px dashed var(--tg-theme-hint-color, #8e8e93);
+        }
+
+        .tabs {
+            display: flex;
+            padding: 8px 16px 0;
+            gap: 4px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 6px 12px;
+            font-size: 13px;
+            font-weight: 500;
+            background: var(--tg-theme-secondary-bg-color, #f2f2f7);
+            border: none;
+            border-radius: 8px 8px 0 0;
+            color: var(--tg-theme-text-color, #000000);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab.active {
+            background: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-button-text-color, #ffffff);
+            font-weight: 600;
+        }
+
+        .tab-content {
+            padding: 16px;
+        }
+
+        .tab-pane {
+            display: none;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 600;
+            font-family: monospace;
+            letter-spacing: 1px;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        .control-code {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--tg-theme-hint-color, #8e8e93);
+        }
+
         .ticket-container {
             width: 100%;
             max-width: 360px;
@@ -34,6 +87,8 @@
             margin-bottom: 18px;
             padding-bottom: 18px;
             border-bottom: 1px solid var(--tg-theme-section-bg-color, #e5e5ea);
+            min-width: 100%;
+            max-width: 100%;
         }
 
         .row-block .label {
@@ -258,13 +313,23 @@
 <div class="ticket-container">
     <div class="ticket">
         <div class="header">
-            <h1>Городской Транспорт</h1>
-            <div class="duration">Действует: <span id="timer">13</span> сек.</div>
+            <h1>Действует: <span id="timer">13</span> сек.</h1>
         </div>
 
-        <div class="ticket-number">
-            <div class="number">1 320 380 863</div>
-            <div class="control">Контроль</div>
+        <div class="tabs-container">
+    <div class="tabs">
+        <button class="tab active" data-tab="number">Номер</button>
+        <button class="tab" data-tab="control">Контроль</button>
+    </div>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="number-tab">
+                <div class="ticket-number">1 320 380 863</div>
+            </div>
+            <div class="tab-pane" id="control-tab">
+                <div class="control-code">Контрольный код</div>
+            </div>
+        </div>
         </div>
 
         <div class="details">
@@ -278,21 +343,19 @@
                 <div class="route-number">x164kx124</div>
             </div>
 
-            <div class="row">
+            <div class="row-block">
                 <div class="label">Стоимость</div>
-                <div class="value price">1 шт., Полный, 48.00 ₽</div>
+                <div class="carrier-value">1 шт., Полный, 48.00 ₽</div>
             </div>
 
-            <div class="row date-time">
-                <div>
-                    <div class="label">Дата покупки</div>
-                    <div class="value">01 декабря 2025 г.</div>
-                </div>
-                <div>
-                    <div class="label">Время покупки</div>
-                    <div class="value">20:40</div>
-                </div>
+            <div class="row-block">
+                <div class="label">Дата покупки</div>
+                <div class="carrier-value">01 декабря 2025 г.</div>
             </div>
+                <div class="row-block">
+                    <div class="label">Время покупки</div>
+                    <div class="carrier-value">20:40</div>
+                </div>
         </div>
     </div>
     <button class="close-btn" id="closeButton">ЗАКРЫТЬ</button>
