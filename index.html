@@ -124,7 +124,7 @@
         }
 
         .row-block .label {
-            font-size: 14px;
+            font-size: 16px;
             color: var(--tg-theme-hint-color, #8e8e93);
             margin-bottom: 4px;
         }
@@ -137,7 +137,7 @@
 
         .row-block .route-number {
             color: var(--tg-theme-text-color, #000000);
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
             letter-spacing: normal;
         }
@@ -159,7 +159,7 @@
         }
 
         .header h1 {
-            font-size: 20px;
+            font-size: 25px;
             font-weight: 600;
             margin-bottom: 6px;
         }
@@ -344,7 +344,7 @@
         <div class="ticket-container">
             <div class="ticket">
                 <div class="header">
-                    <h1>Действует: <span id="timer">13</span> сек.</h1>
+                    <h1>Действует: <span id="timer">15</span> сек.</h1>
                 </div>
 
                 <div class="tabs-container">
@@ -361,8 +361,8 @@
                     </div>
 
                     <div class="row-block">
-                        <div class="label">Маршрут</div>
-                        <div class="route-number" id="routeInfo">x164kx124</div>
+                        <div class="label" id="route">Маршрут</div>
+                        <div class="route-number" id="bus">x164kx124</div>
                     </div>
 
                     <div class="row-block">
@@ -421,16 +421,8 @@
         document.documentElement.style.setProperty('--tg-theme-secondary-bg-color', tg.themeParams.secondary_bg_color || '#f2f2f7');
 
         // Подставляем полученные параметры в нужные места
-        document.getElementById('routeInfo').textContent = `Маршрут ${routeNumber}, ${busNumber}`;
-
-        // Также можно использовать параметры для генерации номера билета или контрольного кода
-        // Например, создать номер билета на основе параметров
-        const ticketNumber = `1 ${routeNumber.padStart(3, '0')} ${busNumber.padStart(3, '0')} 863`;
-        document.querySelector('.tab.active').textContent = ticketNumber;
-
-        // Генерируем контрольный код на основе параметров
-        const controlCode = `${routeNumber}-${busNumber}-${Date.now().toString().slice(-4)}`;
-        document.querySelector('.tab[data-tab="control"]').textContent = controlCode;
+        document.getElementById('route').textContent = `${routeNumber}`;
+        document.getElementById('bus').textContent = `${busNumber}`;
 
         // Инициализация таймера
         let timeLeft = 15;
