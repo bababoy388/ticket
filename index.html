@@ -38,7 +38,7 @@
         .tab {
             flex: 1;
             padding: 6px 12px;
-            font-size: 13px;
+            font-size: 16px;
             font-weight: 500;
             background: transparent;
             border: none;
@@ -64,7 +64,6 @@
             text-align: center;
             font-size: 20px;
             font-weight: 600;
-            font-family: monospace;
             letter-spacing: 1px;
         }
 
@@ -82,6 +81,9 @@
             width: 100%;
             max-width: 360px;
             margin: auto;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         .row-block {
@@ -106,10 +108,9 @@
 
         .row-block .route-number {
             color: var(--tg-theme-text-color, #000000);
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
-            font-family: monospace;
-            letter-spacing: 2px;
+            letter-spacing: normal;
         }
 
         .ticket {
@@ -118,6 +119,7 @@
             overflow: visible;
             box-shadow: none;
             margin-bottom: 0;
+            flex: 1;
         }
 
         .header {
@@ -147,12 +149,12 @@
         }
 
         .number {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 700;
-            letter-spacing: 2px;
+            letter-spacing: normal;
             color: var(--tg-theme-text-color, #000000);
             margin-bottom: 4px;
-            word-spacing: 4px;
+            word-spacing: normal;
         }
 
         .control {
@@ -218,9 +220,8 @@
         }
 
         .qr-code {
-            font-family: monospace;
-            font-size: 20px;
-            letter-spacing: 2px;
+            font-size: 18px;
+            letter-spacing: normal;
             padding: 12px;
             background-color: transparent;
             border-radius: 0;
@@ -247,13 +248,16 @@
             width: 48%;
         }
 
-        /* Фон под кнопкой - прямоугольник без скруглений */
+        /* Фон под кнопкой - растянутый до границ экрана */
         .button-background {
             background-color: rgba(0, 0, 0, 0.05);
             border-radius: 0;
-            padding: 16px;
-            margin: 20px 0;
-            width: 100%;
+            padding: 20px 16px;
+            margin-top: auto;
+            margin-left: -16px; /* Растягиваем влево за границы контейнера */
+            margin-right: -16px; /* Растягиваем вправо за границы контейнера */
+            width: calc(100% + 32px); /* Компенсируем растяжение */
+            margin-bottom: -16px; /* Компенсируем padding body снизу */
         }
 
         /* Для темной темы Telegram */
@@ -263,19 +267,21 @@
             }
         }
 
-        /* Красная кнопка */
+        /* Кнопка внутри растянутого фона */
         .close-btn {
             background-color: #ff3b30 !important;
             color: #ffffff !important;
             border: none;
             width: 100%;
-            padding: 11px;
+            max-width: 360px; /* Ограничиваем ширину самой кнопки */
+            padding: 12px;
             font-size: 16px;
             font-weight: 500;
             cursor: pointer;
             border-radius: 10px;
             transition: opacity 0.2s;
-            margin: 0;
+            margin: 0 auto; /* Центрируем кнопку внутри растянутого фона */
+            display: block;
         }
 
         .close-btn:active {
@@ -316,14 +322,17 @@
                 max-width: 100%;
             }
 
-            .number {
-                font-size: 28px;
-                letter-spacing: 1px;
+            .button-background {
+                margin-left: 0;
+                margin-right: 0;
+                width: 100%;
+                padding-left: 0;
+                padding-right: 0;
             }
 
-            .qr-code {
-                font-size: 18px;
-                letter-spacing: 1px;
+            .close-btn {
+                border-radius: 0;
+                max-width: 100%;
             }
         }
     </style>
@@ -345,7 +354,7 @@
         <div class="details">
             <div class="row-block">
                 <div class="label">Перевозчик</div>
-                <div class="route-number">000 "СКАД"</div>
+                <div class="route-number">ООО "СКАД"</div>
             </div>
 
             <div class="row-block">
@@ -369,7 +378,7 @@
         </div>
     </div>
 
-    <!-- Добавлен фон под кнопкой -->
+    <!-- Добавлен фон под кнопкой - растянутый до границ -->
     <div class="button-background">
         <button class="close-btn" id="closeButton">ЗАКРЫТЬ</button>
     </div>
