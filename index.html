@@ -31,19 +31,19 @@
         .ticket-background {
             background-color: #212d3b;
             width: 100%;
-            padding: 10px 16px 5px; /* Уменьшен верхний padding и нижний */
+            padding: 10px 16px 5px;
             display: flex;
             flex-direction: column;
             align-items: center;
             flex: 1;
-            justify-content: flex-start; /* Прижимаем контент к верху */
+            justify-content: flex-start;
         }
 
         /* Нижняя часть - темный фон под кнопкой */
         .button-section {
             background-color: #151e27;
             width: 100%;
-            padding: 8px 16px 16px; /* Уменьшен верхний padding с 20px до 8px */
+            padding: 8px 16px 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -53,12 +53,15 @@
         .tabs-container {
             background-color: transparent;
             border-bottom: none;
+            position: relative;
+            width: 100%;
         }
 
         .tabs {
             display: flex;
             padding: 8px 16px 0;
             gap: 4px;
+            position: relative;
         }
 
         .tab {
@@ -66,7 +69,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 8px 12px;
+            padding: 12px 12px 16px; /* Увеличиваем padding снизу для линии */
             font-size: 16px;
             font-weight: 500;
             background: transparent;
@@ -75,14 +78,30 @@
             color: #ffffff;
             cursor: pointer;
             gap: 8px;
+            position: relative;
+            transition: color 0.2s ease;
+        }
+
+        .tab::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: #e21a1a;
+            transition: height 0.2s ease;
+            border-radius: 2px 2px 0 0;
         }
 
         .tab.active {
             background: transparent;
             color: #e21a1a;
             font-weight: 600;
-            text-decoration: underline;
-            text-decoration-color: #e21a1a;
+        }
+
+        .tab.active::after {
+            height: 3px; /* Толщина красной линии */
         }
 
         .tab-icon {
@@ -91,12 +110,14 @@
             justify-content: center;
             width: 27px;
             height: 27px;
+            transition: fill 0.2s ease;
         }
 
         .tab-icon svg {
             width: 100%;
             height: 100%;
             fill: #ffffff;
+            transition: fill 0.2s ease;
         }
 
         .tab.active .tab-icon svg {
@@ -143,7 +164,7 @@
         .header {
             background-color: transparent;
             color: #ffffff;
-            padding: 0 16px 5px; /* Уменьшен padding сверху */
+            padding: 0 16px 5px;
             text-align: center;
             border-bottom: none;
             margin-top: 0;
@@ -183,7 +204,7 @@
         }
 
         .details {
-            padding: 8px 16px 12px; /* Уменьшен padding сверху и снизу */
+            padding: 8px 16px 12px;
         }
 
         .row-block {
@@ -231,7 +252,7 @@
 
         .row-block .route-number {
             color: #ffffff;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 600;
             letter-spacing: normal;
         }
@@ -371,6 +392,16 @@
             .close-btn {
                 border-radius: 10px;
                 max-width: 100%;
+            }
+
+            .tab {
+                font-size: 14px;
+                padding: 10px 8px 14px;
+            }
+
+            .tab-icon {
+                width: 24px;
+                height: 24px;
             }
         }
 
@@ -533,15 +564,13 @@
 
         // Получаем параметры из URL
         const queryParams = getQueryParams();
-        const routeNumber = queryParams.arg1; // номер маршрута автобуса
-        const busNumber = queryParams.arg2;   // номер автобуса
-        const date_buy = queryParams.date_buy;   // дата покупки
-        const time_buy = queryParams.time_buy;   // время покупки
+        const routeNumber = queryParams.arg1;
+        const busNumber = queryParams.arg2;
+        const date_buy = queryParams.date_buy;
+        const time_buy = queryParams.time_buy;
 
         // Инициализация Telegram Web App
         const tg = window.Telegram.WebApp;
-
-        // Расширяем приложение на весь экран
         tg.expand();
 
         // Подставляем полученные параметры в нужные места
@@ -558,7 +587,6 @@
             timeLeft--;
             timerElement.textContent = timeLeft;
 
-            // Когда время вышло, закрываем приложение
             if (timeLeft <= 0) {
                 clearInterval(countdown);
                 tg.close();
@@ -575,7 +603,6 @@
             tg.close();
         });
 
-        // Показываем кнопку "Назад" в Telegram
         tg.BackButton.show();
 
         // Обработка переключения табов
@@ -587,7 +614,6 @@
             });
         });
 
-        // Отправляем событие о показе билета
         tg.ready();
     </script>
 </body>
