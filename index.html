@@ -14,34 +14,40 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
         }
 
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
         body {
             background-color: #212d3b;
             color: #ffffff;
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            min-height: 100vh;
         }
 
         /* Верхняя часть - фон для билета */
         .ticket-background {
             background-color: #212d3b;
             width: 100%;
-            flex: 1;
-            padding: 16px;
+            padding: 10px 16px 5px; /* Уменьшен верхний padding и нижний */
             display: flex;
             flex-direction: column;
             align-items: center;
+            flex: 1;
+            justify-content: flex-start; /* Прижимаем контент к верху */
         }
 
         /* Нижняя часть - темный фон под кнопкой */
         .button-section {
             background-color: #151e27;
             width: 100%;
-            padding: 20px 16px;
+            padding: 8px 16px 16px; /* Уменьшен верхний padding с 20px до 8px */
             display: flex;
             flex-direction: column;
             align-items: center;
+            flex-shrink: 0;
         }
 
         .tabs-container {
@@ -122,28 +128,25 @@
         .ticket-container {
             width: 100%;
             max-width: 360px;
-            margin: auto;
             display: flex;
             flex-direction: column;
         }
 
-        /* ИЗМЕНЕНИЕ: Уменьшен отступ сверху у билета */
         .ticket {
             background-color: transparent;
             border-radius: 0;
             overflow: visible;
             box-shadow: none;
             margin-bottom: 0;
-            margin-top: 0; /* Убираем отступ сверху */
         }
 
         .header {
             background-color: transparent;
             color: #ffffff;
-            padding: 5px 16px;
+            padding: 0 16px 5px; /* Уменьшен padding сверху */
             text-align: center;
             border-bottom: none;
-            margin-top: 0; /* Убираем отступ сверху */
+            margin-top: 0;
         }
 
         .header h1 {
@@ -179,9 +182,8 @@
             font-weight: 500;
         }
 
-        /* ИЗМЕНЕНИЕ: Уменьшен padding сверху */
         .details {
-            padding: 10px 16px 20px; /* Уменьшен сверху, сохранен снизу */
+            padding: 8px 16px 12px; /* Уменьшен padding сверху и снизу */
         }
 
         .row-block {
@@ -371,32 +373,6 @@
                 max-width: 100%;
             }
         }
-
-        /* ВАРИАНТ 2: Еще более компактный заголовок */
-        /* Раскомментируйте, если нужно еще ближе к краю */
-        /*
-        .header {
-            padding: 5px 16px;
-        }
-        .ticket-background {
-            padding: 10px 16px;
-        }
-        */
-
-        /* ВАРИАНТ 3: Заголовок прямо вверху без отступов */
-        /* Раскомментируйте для максимально компактного варианта */
-        /*
-        .header {
-            padding: 0 16px 10px;
-            margin-top: 0;
-        }
-        .ticket-background {
-            padding: 5px 16px 16px;
-        }
-        .header h1 {
-            margin-bottom: 0;
-        }
-        */
 
         .icons-x2 .tab-icon {
             width: 36px;
