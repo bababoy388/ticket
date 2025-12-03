@@ -21,7 +21,7 @@
 
         body {
             background-color: #212d3b;
-            color: #ffffff;
+            color: rgba(255, 255, 255, 0.85); /* Увеличена прозрачность */
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -75,7 +75,7 @@
             background: transparent;
             border: none;
             border-radius: 0;
-            color: #ffffff;
+            color: rgba(255, 255, 255, 0.85); /* Увеличена прозрачность */
             cursor: pointer;
             gap: 8px;
             position: relative;
@@ -116,7 +116,7 @@
         .tab-icon svg {
             width: 100%;
             height: 100%;
-            fill: #ffffff;
+            fill: rgba(255, 255, 255, 0.85); /* Увеличена прозрачность */
             transition: fill 0.2s ease;
         }
 
@@ -134,6 +134,7 @@
             font-size: 20px;
             font-weight: 600;
             letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.85); /* Увеличена прозрачность */
         }
 
         .tab-pane.active {
@@ -143,7 +144,7 @@
         .control-code {
             font-size: 16px;
             font-weight: 500;
-            color: #8e8e93;
+            color: rgba(142, 142, 147, 0.85); /* Увеличена прозрачность */
         }
 
         .ticket-container {
@@ -163,7 +164,7 @@
 
         .header {
             background-color: transparent;
-            color: #ffffff;
+            color: rgba(255, 255, 255, 0.85); /* Увеличена прозрачность */
             padding: 0 16px 5px;
             text-align: center;
             border-bottom: none;
@@ -178,7 +179,7 @@
 
         .header .duration {
             font-size: 14px;
-            opacity: 0.9;
+            opacity: 0.8; /* Увеличена прозрачность (было 0.9) */
         }
 
         .ticket-number {
@@ -192,14 +193,14 @@
             font-size: 28px;
             font-weight: 500;
             letter-spacing: normal;
-            color: #ffffff;
+            color: rgba(255, 255, 255, 0.85); /* Увеличена прозрачность */
             margin-bottom: 4px;
             word-spacing: normal;
         }
 
         .control {
             font-size: 16px;
-            color: #8e8e93;
+            color: rgba(142, 142, 147, 0.85); /* Увеличена прозрачность */
             font-weight: 500;
         }
 
@@ -212,7 +213,7 @@
             align-items: flex-start;
             margin-bottom: 10px;
             padding-bottom: 10px;
-            border-bottom: 1px solid #3a4859;
+            border-bottom: 1px solid rgba(58, 72, 89, 0.7); /* Увеличена прозрачность */
             min-width: 100%;
             max-width: 100%;
         }
@@ -231,7 +232,7 @@
         .row-block-icon svg {
             width: 30px;
             height: 30px;
-            fill: #ffffff;
+            fill: rgba(255, 255, 255, 0.85); /* Увеличена прозрачность */
         }
 
         .row-block-content {
@@ -240,18 +241,18 @@
 
         .row-block .label {
             font-size: 16px;
-            color: #8e8e93;
+            color: rgba(142, 142, 147, 0.85); /* Увеличена прозрачность */
             margin-bottom: 4px;
         }
 
         .row-block .carrier-value {
-            color: #2481cc;
+            color: rgba(36, 129, 204, 0.9); /* Увеличена прозрачность */
             font-size: 20px;
             font-weight: 600;
         }
 
         .row-block .route-number {
-            color: #ffffff;
+            color: rgba(255, 255, 255, 0.85); /* Увеличена прозрачность */
             font-size: 22px;
             font-weight: 500;
             letter-spacing: normal;
@@ -262,7 +263,7 @@
             justify-content: space-between;
             margin-bottom: 18px;
             padding-bottom: 18px;
-            border-bottom: 1px solid #3a4859;
+            border-bottom: 1px solid rgba(58, 72, 89, 0.7); /* Увеличена прозрачность */
         }
 
         .row:last-of-type {
@@ -273,26 +274,27 @@
 
         .label {
             font-size: 14px;
-            color: #8e8e93;
+            color: rgba(142, 142, 147, 0.85); /* Увеличена прозрачность */
             width: 40%;
         }
 
         .value {
             font-size: 16px;
-            color: #ffffff;
+            color: rgba(255, 255, 255, 0.85); /* Увеличена прозрачность */
             font-weight: 500;
             width: 60%;
             text-align: right;
         }
 
         .carrier-value {
-            color: #2481cc;
+            color: rgba(36, 129, 204, 0.9); /* Увеличена прозрачность */
             font-size: 17px;
         }
 
         .route {
             font-size: 17px;
             line-height: 1.4;
+            color: rgba(255, 255, 255, 0.85); /* Увеличена прозрачность */
         }
 
         .qr-section {
@@ -305,7 +307,7 @@
 
         .qr-label {
             font-size: 14px;
-            color: #8e8e93;
+            color: rgba(142, 142, 147, 0.85); /* Увеличена прозрачность */
             margin-bottom: 8px;
         }
 
@@ -316,10 +318,11 @@
             background-color: transparent;
             border-radius: 0;
             display: inline-block;
+            color: rgba(255, 255, 255, 0.85); /* Увеличена прозрачность */
         }
 
         .price {
-            color: #e21a1a;
+            color: rgba(226, 26, 26, 0.9); /* Увеличена прозрачность */
             font-size: 18px;
         }
 
@@ -339,13 +342,13 @@
         }
 
         .close-btn {
-            background-color: #e21a1a !important;
-            color: #ffffff !important;
+            background-color: rgba(226, 26, 26, 0.9) !important; /* Увеличена прозрачность */
+            color: rgba(255, 255, 255, 0.95) !important; /* Увеличена прозрачность */
             border: none;
             width: 100%;
             max-width: 360px;
             padding: 12px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             cursor: pointer;
             border-radius: 10px;
@@ -355,25 +358,25 @@
         }
 
         .close-btn:active {
-            opacity: 0.8;
+            opacity: 0.7; /* Увеличена прозрачность при нажатии */
         }
 
         .timer {
             text-align: center;
             margin-top: 16px;
             font-size: 14px;
-            color: #8e8e93;
+            color: rgba(142, 142, 147, 0.85); /* Увеличена прозрачность */
         }
 
         .timer-value {
             font-weight: 600;
-            color: #ffffff;
+            color: rgba(255, 255, 255, 0.85); /* Увеличена прозрачность */
         }
 
         @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.6; }
-            100% { opacity: 1; }
+            0% { opacity: 0.85; }    /* Увеличена прозрачность */
+            50% { opacity: 0.6; }    /* Увеличена прозрачность */
+            100% { opacity: 0.85; }  /* Увеличена прозрачность */
         }
 
         .timer.pulse {
@@ -433,17 +436,17 @@
 
         .icons-blue .tab-icon svg,
         .icons-blue .row-block-icon svg {
-            fill: #2481cc;
+            fill: rgba(36, 129, 204, 0.9); /* Увеличена прозрачность */
         }
 
         .icons-red .tab-icon svg,
         .icons-red .row-block-icon svg {
-            fill: #e21a1a;
+            fill: rgba(226, 26, 26, 0.9); /* Увеличена прозрачность */
         }
 
         .icons-green .tab-icon svg,
         .icons-green .row-block-icon svg {
-            fill: #2ecc71;
+            fill: rgba(46, 204, 113, 0.9); /* Увеличена прозрачность */
         }
     </style>
 </head>
