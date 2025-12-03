@@ -15,8 +15,8 @@
         }
 
         body {
-            background-color: var(--tg-theme-bg-color, #ffffff);
-            color: var(--tg-theme-text-color, #000000);
+            background-color: #212d3b;
+            color: #ffffff;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -25,7 +25,7 @@
 
         /* Верхняя часть - фон для билета */
         .ticket-background {
-            background-color: var(--tg-theme-bg-color, #ffffff);
+            background-color: #212d3b;
             width: 100%;
             flex: 1;
             padding: 16px;
@@ -36,22 +36,12 @@
 
         /* Нижняя часть - темный фон под кнопкой */
         .button-section {
-            background-color: rgba(0, 0, 0, 0.10);
+            background-color: #151e27;
             width: 100%;
             padding: 20px 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-
-        /* Для темной темы Telegram */
-        @media (prefers-color-scheme: dark) {
-            .ticket-background {
-                background-color: #1c1c1e;
-            }
-            .button-section {
-                background-color: rgba(0, 0, 0, 0.10);
-            }
         }
 
         .tabs-container {
@@ -73,16 +63,17 @@
             background: transparent;
             border: none;
             border-radius: 0;
-            color: var(--tg-theme-text-color, #000000);
+            color: #ffffff;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
         .tab.active {
             background: transparent;
-            color: var(--tg-theme-text-color, #000000);
+            color: #e21a1a; /* Красный цвет как у кнопки */
             font-weight: 600;
             text-decoration: underline;
+            text-decoration-color: #e21a1a; /* Красная линия подчеркивания */
         }
 
         .tab-content {
@@ -104,7 +95,7 @@
         .control-code {
             font-size: 16px;
             font-weight: 500;
-            color: var(--tg-theme-hint-color, #8e8e93);
+            color: #8e8e93;
         }
 
         .ticket-container {
@@ -116,27 +107,27 @@
         }
 
         .row-block {
-            margin-bottom: 18px;
-            padding-bottom: 18px;
-            border-bottom: 1px solid var(--tg-theme-section-bg-color, #e5e5ea);
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #3a4859;
             min-width: 100%;
             max-width: 100%;
         }
 
         .row-block .label {
             font-size: 16px;
-            color: var(--tg-theme-hint-color, #8e8e93);
+            color: #8e8e93;
             margin-bottom: 4px;
         }
 
         .row-block .carrier-value {
-            color: var(--tg-theme-link-color, #2481cc);
+            color: #2481cc;
             font-size: 20px;
             font-weight: 600;
         }
 
         .row-block .route-number {
-            color: var(--tg-theme-text-color, #000000);
+            color: #ffffff;
             font-size: 20px;
             font-weight: 600;
             letter-spacing: normal;
@@ -152,7 +143,7 @@
 
         .header {
             background-color: transparent;
-            color: var(--tg-theme-text-color, #000000);
+            color: #ffffff;
             padding: 20px 16px;
             text-align: center;
             border-bottom: none;
@@ -180,14 +171,14 @@
             font-size: 28px;
             font-weight: 700;
             letter-spacing: normal;
-            color: var(--tg-theme-text-color, #000000);
+            color: #ffffff;
             margin-bottom: 4px;
             word-spacing: normal;
         }
 
         .control {
             font-size: 16px;
-            color: var(--tg-theme-hint-color, #8e8e93);
+            color: #8e8e93;
             font-weight: 500;
         }
 
@@ -200,7 +191,7 @@
             justify-content: space-between;
             margin-bottom: 18px;
             padding-bottom: 18px;
-            border-bottom: 1px solid var(--tg-theme-section-bg-color, #e5e5ea);
+            border-bottom: 1px solid #3a4859;
         }
 
         .row:last-of-type {
@@ -211,20 +202,20 @@
 
         .label {
             font-size: 14px;
-            color: var(--tg-theme-hint-color, #8e8e93);
+            color: #8e8e93;
             width: 40%;
         }
 
         .value {
             font-size: 16px;
-            color: var(--tg-theme-text-color, #000000);
+            color: #ffffff;
             font-weight: 500;
             width: 60%;
             text-align: right;
         }
 
         .carrier-value {
-            color: var(--tg-theme-link-color, #2481cc);
+            color: #2481cc;
             font-size: 17px;
         }
 
@@ -243,7 +234,7 @@
 
         .qr-label {
             font-size: 14px;
-            color: var(--tg-theme-hint-color, #8e8e93);
+            color: #8e8e93;
             margin-bottom: 8px;
         }
 
@@ -257,7 +248,7 @@
         }
 
         .price {
-            color: var(--tg-theme-destructive-text-color, #ff3b30);
+            color: #e21a1a;
             font-size: 18px;
         }
 
@@ -276,9 +267,9 @@
             width: 48%;
         }
 
-        /* Красная кнопка */
+        /* Кнопка */
         .close-btn {
-            background-color: #ff3b30 !important;
+            background-color: #e21a1a !important;
             color: #ffffff !important;
             border: none;
             width: 100%;
@@ -301,12 +292,12 @@
             text-align: center;
             margin-top: 16px;
             font-size: 14px;
-            color: var(--tg-theme-hint-color, #8e8e93);
+            color: #8e8e93;
         }
 
         .timer-value {
             font-weight: 600;
-            color: var(--tg-theme-text-color, #000000);
+            color: #ffffff;
         }
 
         /* Анимация для таймера */
@@ -415,15 +406,6 @@
         // Расширяем приложение на весь экран
         tg.expand();
 
-        // Устанавливаем цветовую схему
-        document.documentElement.style.setProperty('--tg-theme-bg-color', tg.themeParams.bg_color || '#ffffff');
-        document.documentElement.style.setProperty('--tg-theme-text-color', tg.themeParams.text_color || '#000000');
-        document.documentElement.style.setProperty('--tg-theme-hint-color', tg.themeParams.hint_color || '#8e8e93');
-        document.documentElement.style.setProperty('--tg-theme-link-color', tg.themeParams.link_color || '#2481cc');
-        document.documentElement.style.setProperty('--tg-theme-button-color', tg.themeParams.button_color || '#2481cc');
-        document.documentElement.style.setProperty('--tg-theme-button-text-color', tg.themeParams.button_text_color || '#ffffff');
-        document.documentElement.style.setProperty('--tg-theme-secondary-bg-color', tg.themeParams.secondary_bg_color || '#f2f2f7');
-
         // Подставляем полученные параметры в нужные места
         document.getElementById('route').textContent = `${routeNumber}`;
         document.getElementById('bus').textContent = `${busNumber}`;
@@ -463,13 +445,13 @@
             tab.addEventListener('click', () => {
                 // Убираем активный класс у всех табов
                 document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
 
                 // Добавляем активный класс текущему табу
                 tab.classList.add('active');
                 const tabId = tab.getAttribute('data-tab');
-                // В вашем коде нет элементов с id="number-tab" и id="control-tab"
-                // Если они нужны, их нужно добавить в HTML
+
+                // Здесь можно добавить логику для отображения содержимого вкладки
+                // Например, если нужно показывать разный контент для каждой вкладки
             });
         });
 
