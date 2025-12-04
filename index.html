@@ -55,8 +55,8 @@
             border-bottom: none;
             position: relative;
             width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+            /* УБРАЛИ ПРОКРУТКУ */
+            overflow-x: hidden;
             padding-bottom: 5px;
         }
 
@@ -77,7 +77,7 @@
             justify-content: center;
             padding: 12px 16px 16px;
             font-size: 16px !important;
-            font-weight: 400;
+            font-weight: 500;
             background: transparent;
             border: none;
             border-radius: 0;
@@ -158,7 +158,7 @@
 
         .ticket-container {
             width: 100%;
-            max-width: 500px; /* Увеличил с 420px до 500px */
+            max-width: 500px;
             display: flex;
             flex-direction: column;
             word-wrap: break-word;
@@ -256,8 +256,7 @@
             word-wrap: break-word;
             word-break: normal;
             overflow-wrap: break-word;
-            /* Увеличиваем максимальную ширину для переноса */
-            max-width: calc(100% - 48px); /* Учитываем ширину иконки + отступ */
+            max-width: calc(100% - 48px);
             width: auto;
         }
 
@@ -285,7 +284,6 @@
             overflow-wrap: break-word;
             hyphens: auto;
             line-height: 1.3;
-            /* Увеличиваем максимальную ширину для текста маршрута */
             max-width: 100%;
             display: inline-block;
         }
@@ -419,22 +417,13 @@
             display: none;
         }
 
-        /* Стили для скроллбара в табах */
+        /* СКРЫЛИ СКРОЛЛБАР */
         .tabs-container::-webkit-scrollbar {
-            height: 3px;
+            display: none;
         }
-
-        .tabs-container::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .tabs-container::-webkit-scrollbar-thumb {
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 3px;
-        }
-
-        .tabs-container::-webkit-scrollbar-thumb:hover {
-            background-color: rgba(255, 255, 255, 0.3);
+        .tabs-container {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
         @media (max-width: 500px) {
@@ -460,9 +449,8 @@
                 line-height: 1.2;
             }
 
-            /* На маленьких экранах делаем контентный блок еще шире */
             .row-block-content {
-                max-width: calc(100% - 40px); /* Уменьшаем отступ для иконки */
+                max-width: calc(100% - 40px);
             }
         }
 
@@ -476,7 +464,7 @@
             }
 
             .row-block-content {
-                max-width: calc(100% - 36px); /* Еще уменьшаем для очень узких экранов */
+                max-width: calc(100% - 36px);
             }
         }
 
@@ -490,7 +478,6 @@
             }
         }
 
-        /* Специальные стили для увеличения области маршрута */
         #bus {
             display: inline-block;
             max-width: 100%;
@@ -717,13 +704,74 @@
                     busElement.style.lineHeight = '1.3';
                 }
             }
+        }
 
-            // Автоматически прокручиваем к активному табу если нужно
-            const activeTab = document.querySelector('.tab.active');
-            if (activeTab) {
-                const tabsContainer = document.querySelector('.tabs-container');
-                const tabOffset = activeTab.offsetLeft - tabsContainer.offsetWidth / 2 + activeTab.offsetWidth / 2;
-                tabsContainer.scrollLeft = tabOffset;
+        // Функция для автоматической настройки размера табов
+        function adjustTabsSize() {
+            const tabsContainer = document.querySelector('.tabs-container');
+            const tabs = document.querySelector('.tabs');
+            const tabButtons = document.querySelectorAll('.tab');
+            const tabIcons = document.querySelectorAll('.tab-icon');
+
+            if (!tabsContainer || !tabs || tabButtons.length === 0) return;
+
+            // Сбрасываем стили к исходным значениям
+            tabButtons.forEach(tab => {
+                tab.style.fontSize = '';
+                tab.style.paddingLeft = '';
+                tab.style.paddingRight = '';
+            });
+
+            tabIcons.forEach(icon => {
+                icon.style.width = '';
+                icon.style.height = '';
+            });
+
+            // Получаем исходные размеры
+            let currentFontSize = 16; // Исходный размер из CSS
+            let currentIconSize = 27; // Исходный размер иконок
+            let currentPaddingLR = 16; // Исходный padding-left/right
+
+            // Пока табы не помещаются в контейнер и размер больше минимального
+            while (tabs.scrollWidth > tabsContainer.clientWidth && currentFontSize > 12) {
+                // Уменьшаем шрифт на 1px
+                currentFontSize -= 1;
+                tabButtons.forEach(tab => {
+                    tab.style.fontSize = currentFontSize + 'px !important';
+                });
+
+                // Уменьшаем иконки на 1px
+                if (currentIconSize > 20) {
+                    currentIconSize -= 1;
+                    tabIcons.forEach(icon => {
+                        icon.style.width = currentIconSize + 'px';
+                        icon.style.height = currentIconSize + 'px';
+                    });
+                }
+
+                // Уменьшаем горизонтальные отступы на 1px
+                if (currentPaddingLR > 8) {
+                    currentPaddingLR -= 1;
+                    tabButtons.forEach(tab => {
+                        const currentPaddingTop = parseInt(window.getComputedStyle(tab).paddingTop) || 12;
+                        const currentPaddingBottom = parseInt(window.getComputedStyle(tab).paddingBottom) || 16;
+                        tab.style.padding = currentPaddingTop + 'px ' + currentPaddingLR + 'px ' + currentPaddingBottom + 'px';
+                    });
+                }
+            }
+
+            // Если после всех уменьшений все еще не помещается, уменьшаем gap
+            if (tabs.scrollWidth > tabsContainer.clientWidth) {
+                let currentGap = 8;
+                while (tabs.scrollWidth > tabsContainer.clientWidth && currentGap > 2) {
+                    currentGap -= 1;
+                    tabs.style.gap = currentGap + 'px';
+                }
+            }
+
+            // Центрируем табы, если они стали меньше контейнера
+            if (tabs.scrollWidth < tabsContainer.clientWidth) {
+                tabs.style.margin = '0 auto';
             }
         }
 
@@ -759,17 +807,18 @@
                 document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 const tabId = tab.getAttribute('data-tab');
-
-                // Прокручиваем к выбранному табу
-                const tabsContainer = document.querySelector('.tabs-container');
-                const tabOffset = tab.offsetLeft - tabsContainer.offsetWidth / 2 + tab.offsetWidth / 2;
-                tabsContainer.scrollLeft = tabOffset;
             });
         });
 
-        // Вызываем функцию настройки переноса текста
-        window.addEventListener('load', adjustTextWrapping);
-        window.addEventListener('resize', adjustTextWrapping);
+        // Вызываем функции настройки
+        window.addEventListener('load', function() {
+            adjustTextWrapping();
+            adjustTabsSize();
+        });
+        window.addEventListener('resize', function() {
+            adjustTextWrapping();
+            adjustTabsSize();
+        });
 
         tg.ready();
     </script>
