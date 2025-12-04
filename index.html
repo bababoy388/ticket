@@ -55,8 +55,8 @@
             border-bottom: none;
             position: relative;
             width: 100%;
-            /* УБРАЛИ ПРОКРУТКУ */
-            overflow-x: hidden;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
             padding-bottom: 5px;
         }
 
@@ -158,7 +158,7 @@
 
         .ticket-container {
             width: 100%;
-            max-width: 500px;
+            max-width: 500px; /* Увеличил с 420px до 500px */
             display: flex;
             flex-direction: column;
             word-wrap: break-word;
@@ -256,7 +256,8 @@
             word-wrap: break-word;
             word-break: normal;
             overflow-wrap: break-word;
-            max-width: calc(100% - 48px);
+            /* Увеличиваем максимальную ширину для переноса */
+            max-width: calc(100% - 48px); /* Учитываем ширину иконки + отступ */
             width: auto;
         }
 
@@ -284,6 +285,7 @@
             overflow-wrap: break-word;
             hyphens: auto;
             line-height: 1.3;
+            /* Увеличиваем максимальную ширину для текста маршрута */
             max-width: 100%;
             display: inline-block;
         }
@@ -417,13 +419,22 @@
             display: none;
         }
 
-        /* СКРЫЛИ СКРОЛЛБАР */
+        /* Стили для скроллбара в табах */
         .tabs-container::-webkit-scrollbar {
-            display: none;
+            height: 3px;
         }
-        .tabs-container {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+
+        .tabs-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .tabs-container::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+
+        .tabs-container::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(255, 255, 255, 0.3);
         }
 
         @media (max-width: 500px) {
@@ -449,8 +460,9 @@
                 line-height: 1.2;
             }
 
+            /* На маленьких экранах делаем контентный блок еще шире */
             .row-block-content {
-                max-width: calc(100% - 40px);
+                max-width: calc(100% - 40px); /* Уменьшаем отступ для иконки */
             }
         }
 
@@ -464,7 +476,7 @@
             }
 
             .row-block-content {
-                max-width: calc(100% - 36px);
+                max-width: calc(100% - 36px); /* Еще уменьшаем для очень узких экранов */
             }
         }
 
@@ -478,6 +490,7 @@
             }
         }
 
+        /* Специальные стили для увеличения области маршрута */
         #bus {
             display: inline-block;
             max-width: 100%;
@@ -542,17 +555,13 @@
                     <div class="tabs">
                         <button class="tab active" data-tab="number">
                             <span class="tab-icon">
-                                <svg viewBox="0 0 24 24">
-                                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z"/>
-                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><title>Document-one-page-add-20-regular SVG Icon</title><path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4.257a5.5 5.5 0 0 1-.657-1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v5.022q.516.047 1 .185V4a2 2 0 0 0-2-2m-1 4.5a.5.5 0 0 1-.41.492L12.5 7h-5a.5.5 0 0 1-.09-.992L7.5 6h5a.5.5 0 0 1 .5.5M14.5 19a4.5 4.5 0 1 0 0-9a4.5 4.5 0 0 0 0 9m0-7a.5.5 0 0 1 .5.5V14h1.5a.5.5 0 0 1 0 1H15v1.5a.5.5 0 0 1-1 0V15h-1.5a.5.5 0 0 1 0-1H14v-1.5a.5.5 0 0 1 .5-.5m-7-2h3.837c-.403.284-.767.62-1.08 1H7.5a.5.5 0 0 1 0-1"/></svg>
                             </span>
                             <span>1&nbsp;326&nbsp;741&nbsp;863</span>
                         </button>
                         <button class="tab" data-tab="control">
                             <span class="tab-icon">
-                                <svg viewBox="0 0 24 24">
-                                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
-                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><title>User-police SVG Icon</title><path fill="none" stroke="currentColor" stroke-width="2" d="M16 14c2.374 1.183 4 3.65 4 7v2H4v-2c0-3.354 1.631-5.825 4-7m4 1c3.26 0 5.903-2.686 5.903-5.999c0-.702.218-1.375 0-2.001M6.093 7c-.21.615 0 1.313 0 2.001C6.093 12.314 8.738 15 12 15M6 8h12l3-4c-1.912-1.735-5.21-3-9-3c-3.836 0-7.168 1.296-9 3zm6-3a1 1 0 0 0 1-1h-2a1 1 0 0 0 1 1z"/></svg>
                             </span>
                             <span>Контроль</span>
                         </button>
@@ -562,9 +571,7 @@
                 <div class="details">
                     <div class="row-block">
                         <div class="row-block-icon">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
-                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><title>User-police SVG Icon</title><path fill="none" stroke="currentColor" stroke-width="2" d="M16 14c2.374 1.183 4 3.65 4 7v2H4v-2c0-3.354 1.631-5.825 4-7m4 1c3.26 0 5.903-2.686 5.903-5.999c0-.702.218-1.375 0-2.001M6.093 7c-.21.615 0 1.313 0 2.001C6.093 12.314 8.738 15 12 15M6 8h12l3-4c-1.912-1.735-5.21-3-9-3c-3.836 0-7.168 1.296-9 3zm6-3a1 1 0 0 0 1-1h-2a1 1 0 0 0 1 1z"/></svg>
                         </div>
                         <div class="row-block-content">
                             <div class="label">Перевозчик</div>
@@ -574,9 +581,9 @@
 
                     <div class="row-block">
                         <div class="row-block-icon">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5H15V3H9v2H6.5c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
-                            </svg>
+                            <svg viewBox="0 0 576 512" width="24" height="24">
+    <path d="M144 336C144 318.3 158.3 304 176 304C193.7 304 208 318.3 208 336C208 353.7 193.7 368 176 368C158.3 368 144 353.7 144 336zM368 336C368 318.3 382.3 304 400 304C417.7 304 432 318.3 432 336C432 353.7 417.7 368 400 368C382.3 368 368 353.7 368 336zM74.2 70.03C99.86 38.75 167.8 0 288 0C416.6 0 478 38.63 502.4 70.55C509.9 80.32 512 91.48 512 100.4V128C529.7 128 544 142.3 544 160V224C544 241.7 529.7 256 512 256V376C512 400.1 499.3 422.1 480 435.9V488C480 501.3 469.3 512 456 512C442.7 512 432 501.3 432 488V448H144V488C144 501.3 133.3 512 120 512C106.7 512 96 501.3 96 488V435.9C76.7 422.1 64 400.1 64 376V256C46.33 256 32 241.7 32 224V160C32 142.3 46.33 128 64 128V100.4C64 91.58 66.05 79.97 74.2 70.03zM363.7 96H461.2C445.4 78.89 399.2 48 288 48C185.8 48 133.8 78.27 115.5 96H212.3C217.8 86.44 228.2 80 240 80H336C347.8 80 358.2 86.44 363.7 96zM464 144H312V224H464V144zM112 224H264V144H112V224zM112 272V376C112 389.3 122.7 400 136 400H440C453.3 400 464 389.3 464 376V272H112z"/>
+</svg>
                         </div>
                         <div class="row-block-content">
                             <div class="label" id="route">Маршрут</div>
@@ -586,9 +593,7 @@
 
                     <div class="row-block">
                         <div class="row-block-icon">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><title>Currency-ruble SVG Icon</title><path fill="currentColor" d="M19 4h-9v11H7v2h3v3H7v2h3v6h2v-6h9v-2h-9v-3h7a6.007 6.007 0 0 0 6-6v-1a6.007 6.007 0 0 0-6-6m4 7a4.005 4.005 0 0 1-4 4h-7V6h7a4.005 4.005 0 0 1 4 4Z"/></svg>
                         </div>
                         <div class="row-block-content">
                             <div class="label">Стоимость</div>
@@ -704,74 +709,13 @@
                     busElement.style.lineHeight = '1.3';
                 }
             }
-        }
 
-        // Функция для автоматической настройки размера табов
-        function adjustTabsSize() {
-            const tabsContainer = document.querySelector('.tabs-container');
-            const tabs = document.querySelector('.tabs');
-            const tabButtons = document.querySelectorAll('.tab');
-            const tabIcons = document.querySelectorAll('.tab-icon');
-
-            if (!tabsContainer || !tabs || tabButtons.length === 0) return;
-
-            // Сбрасываем стили к исходным значениям
-            tabButtons.forEach(tab => {
-                tab.style.fontSize = '';
-                tab.style.paddingLeft = '';
-                tab.style.paddingRight = '';
-            });
-
-            tabIcons.forEach(icon => {
-                icon.style.width = '';
-                icon.style.height = '';
-            });
-
-            // Получаем исходные размеры
-            let currentFontSize = 16; // Исходный размер из CSS
-            let currentIconSize = 27; // Исходный размер иконок
-            let currentPaddingLR = 16; // Исходный padding-left/right
-
-            // Пока табы не помещаются в контейнер и размер больше минимального
-            while (tabs.scrollWidth > tabsContainer.clientWidth && currentFontSize > 12) {
-                // Уменьшаем шрифт на 1px
-                currentFontSize -= 1;
-                tabButtons.forEach(tab => {
-                    tab.style.fontSize = currentFontSize + 'px !important';
-                });
-
-                // Уменьшаем иконки на 1px
-                if (currentIconSize > 20) {
-                    currentIconSize -= 1;
-                    tabIcons.forEach(icon => {
-                        icon.style.width = currentIconSize + 'px';
-                        icon.style.height = currentIconSize + 'px';
-                    });
-                }
-
-                // Уменьшаем горизонтальные отступы на 1px
-                if (currentPaddingLR > 8) {
-                    currentPaddingLR -= 1;
-                    tabButtons.forEach(tab => {
-                        const currentPaddingTop = parseInt(window.getComputedStyle(tab).paddingTop) || 12;
-                        const currentPaddingBottom = parseInt(window.getComputedStyle(tab).paddingBottom) || 16;
-                        tab.style.padding = currentPaddingTop + 'px ' + currentPaddingLR + 'px ' + currentPaddingBottom + 'px';
-                    });
-                }
-            }
-
-            // Если после всех уменьшений все еще не помещается, уменьшаем gap
-            if (tabs.scrollWidth > tabsContainer.clientWidth) {
-                let currentGap = 8;
-                while (tabs.scrollWidth > tabsContainer.clientWidth && currentGap > 2) {
-                    currentGap -= 1;
-                    tabs.style.gap = currentGap + 'px';
-                }
-            }
-
-            // Центрируем табы, если они стали меньше контейнера
-            if (tabs.scrollWidth < tabsContainer.clientWidth) {
-                tabs.style.margin = '0 auto';
+            // Автоматически прокручиваем к активному табу если нужно
+            const activeTab = document.querySelector('.tab.active');
+            if (activeTab) {
+                const tabsContainer = document.querySelector('.tabs-container');
+                const tabOffset = activeTab.offsetLeft - tabsContainer.offsetWidth / 2 + activeTab.offsetWidth / 2;
+                tabsContainer.scrollLeft = tabOffset;
             }
         }
 
@@ -807,18 +751,17 @@
                 document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 const tabId = tab.getAttribute('data-tab');
+
+                // Прокручиваем к выбранному табу
+                const tabsContainer = document.querySelector('.tabs-container');
+                const tabOffset = tab.offsetLeft - tabsContainer.offsetWidth / 2 + tab.offsetWidth / 2;
+                tabsContainer.scrollLeft = tabOffset;
             });
         });
 
-        // Вызываем функции настройки
-        window.addEventListener('load', function() {
-            adjustTextWrapping();
-            adjustTabsSize();
-        });
-        window.addEventListener('resize', function() {
-            adjustTextWrapping();
-            adjustTabsSize();
-        });
+        // Вызываем функцию настройки переноса текста
+        window.addEventListener('load', adjustTextWrapping);
+        window.addEventListener('resize', adjustTextWrapping);
 
         tg.ready();
     </script>
