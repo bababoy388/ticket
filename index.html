@@ -513,7 +513,7 @@
                         </div>
                         <div class="row-block-content">
                             <div class="label">Перевозчик</div>
-                            <div class="route-number">ООО "СКАД"</div>
+                            <div class="route-number" id="company">ООО "СКАД"</div>
                         </div>
                     </div>
 
@@ -584,7 +584,8 @@
                 arg1: params.get('arg1') || 'не указан',
                 arg2: params.get('arg2') || 'не указан',
                 date_buy: params.get('date_buy') || 'не указан',
-                time_buy: params.get('time_buy') || 'не указан'
+                time_buy: params.get('time_buy') || 'не указан',
+                company: params.get('company') || 'не указан'
             };
         }
 
@@ -594,6 +595,7 @@
         const busNumber = queryParams.arg2;
         const date_buy = queryParams.date_buy;
         const time_buy = queryParams.time_buy;
+        const company = queryParams.company;
 
         // Инициализация Telegram Web App
         const tg = window.Telegram.WebApp;
@@ -604,6 +606,7 @@
         document.getElementById('bus').textContent = `${busNumber}`;
         document.getElementById('date_buy').textContent = `${date_buy}`;
         document.getElementById('time_buy').textContent = `${time_buy}`;
+        document.getElementById('company').textContent = `${company}`;
 
         // Функция для корректировки переноса текста
         function adjustTextWrapping() {
