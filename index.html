@@ -55,21 +55,27 @@
             border-bottom: none;
             position: relative;
             width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 5px;
         }
 
         .tabs {
             display: flex;
             padding: 8px 16px 0;
-            gap: 4px;
+            gap: 8px;
             position: relative;
+            min-width: min-content;
+            width: max-content;
+            margin: 0 auto;
         }
 
         .tab {
-            flex: 1;
+            flex: 0 0 auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 12px 12px 16px;
+            padding: 12px 16px 16px;
             font-size: 20px;
             font-weight: 500;
             background: transparent;
@@ -81,6 +87,7 @@
             position: relative;
             transition: color 0.2s ease;
             white-space: nowrap;
+            min-width: max-content;
         }
 
         .tab::after {
@@ -112,6 +119,7 @@
             width: 27px;
             height: 27px;
             transition: fill 0.2s ease;
+            flex-shrink: 0;
         }
 
         .tab-icon svg {
@@ -150,7 +158,7 @@
 
         .ticket-container {
             width: 100%;
-            max-width: 360px;
+            max-width: 500px; /* Увеличил с 420px до 500px */
             display: flex;
             flex-direction: column;
             word-wrap: break-word;
@@ -248,6 +256,9 @@
             word-wrap: break-word;
             word-break: normal;
             overflow-wrap: break-word;
+            /* Увеличиваем максимальную ширину для переноса */
+            max-width: calc(100% - 48px); /* Учитываем ширину иконки + отступ */
+            width: auto;
         }
 
         .row-block .label {
@@ -274,6 +285,9 @@
             overflow-wrap: break-word;
             hyphens: auto;
             line-height: 1.3;
+            /* Увеличиваем максимальную ширину для текста маршрута */
+            max-width: 100%;
+            display: inline-block;
         }
 
         .row {
@@ -405,7 +419,25 @@
             display: none;
         }
 
-        @media (max-width: 400px) {
+        /* Стили для скроллбара в табах */
+        .tabs-container::-webkit-scrollbar {
+            height: 3px;
+        }
+
+        .tabs-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .tabs-container::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+
+        .tabs-container::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 500px) {
             .ticket-container {
                 max-width: 100%;
             }
@@ -415,20 +447,56 @@
                 max-width: 100%;
             }
 
-            .tab {
-                font-size: 14px;
-                padding: 10px 8px 14px;
+            .tabs {
+                padding: 8px 12px 0;
             }
 
-            .tab-icon {
-                width: 24px;
-                height: 24px;
+            .tab {
+                padding: 10px 14px 14px;
             }
 
             .row-block .route-number {
                 font-size: 19px;
                 line-height: 1.2;
             }
+
+            /* На маленьких экранах делаем контентный блок еще шире */
+            .row-block-content {
+                max-width: calc(100% - 40px); /* Уменьшаем отступ для иконки */
+            }
+        }
+
+        @media (max-width: 380px) {
+            .tabs {
+                gap: 6px;
+            }
+
+            .tab {
+                padding: 10px 12px 14px;
+            }
+
+            .row-block-content {
+                max-width: calc(100% - 36px); /* Еще уменьшаем для очень узких экранов */
+            }
+        }
+
+        @media (max-width: 340px) {
+            .tabs {
+                gap: 4px;
+            }
+
+            .tab {
+                padding: 10px 10px 14px;
+            }
+        }
+
+        /* Специальные стили для увеличения области маршрута */
+        #bus {
+            display: inline-block;
+            max-width: 100%;
+            word-wrap: break-word;
+            word-break: normal;
+            overflow-wrap: break-word;
         }
 
         .icons-x2 .tab-icon {
@@ -581,7 +649,7 @@
         function getQueryParams() {
             const params = new URLSearchParams(window.location.search);
             return {
-                arg1: params.get('arg1') || 'не указан',
+                arg1: params.get('arg1') || 'не указан аааааа аааааааа аааааааа',
                 arg2: params.get('arg2') || 'не указан',
                 date_buy: params.get('date_buy') || 'не указан',
                 time_buy: params.get('time_buy') || 'не указан',
@@ -608,7 +676,7 @@
         document.getElementById('time_buy').textContent = `${time_buy}`;
         document.getElementById('company').textContent = `${company}`;
 
-        // Функция для корректировки переноса текста
+        // Функция для корректировки переноса текста с увеличенной шириной для маршрута
         function adjustTextWrapping() {
             const busElement = document.getElementById('bus');
             const routeElements = document.querySelectorAll('.route-number');
@@ -628,16 +696,34 @@
                 }
             });
 
-            // Для содержимого блоков
+            // Для содержимого блоков - увеличиваем максимальную ширину
             rowBlockContents.forEach(block => {
                 block.style.minWidth = '0';
                 block.style.overflowWrap = 'break-word';
+                // Увеличиваем максимальную ширину для лучшего переноса
+                block.style.maxWidth = 'calc(100% - 40px)';
             });
 
-            // Специально для номера автобуса
-            if (busElement.textContent.length > 12) {
-                busElement.style.lineHeight = '1.2';
-                busElement.style.fontSize = '20px';
+            // Специально для номера автобуса - увеличиваем максимальную ширину
+            if (busElement) {
+                busElement.style.maxWidth = '100%';
+                busElement.style.display = 'inline-block';
+                busElement.style.wordBreak = 'break-word';
+                busElement.style.overflowWrap = 'break-word';
+
+                // Увеличиваем шрифт для длинных текстов
+                if (busElement.textContent.length > 10) {
+                    busElement.style.fontSize = '22px';
+                    busElement.style.lineHeight = '1.3';
+                }
+            }
+
+            // Автоматически прокручиваем к активному табу если нужно
+            const activeTab = document.querySelector('.tab.active');
+            if (activeTab) {
+                const tabsContainer = document.querySelector('.tabs-container');
+                const tabOffset = activeTab.offsetLeft - tabsContainer.offsetWidth / 2 + activeTab.offsetWidth / 2;
+                tabsContainer.scrollLeft = tabOffset;
             }
         }
 
@@ -673,6 +759,11 @@
                 document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 const tabId = tab.getAttribute('data-tab');
+
+                // Прокручиваем к выбранному табу
+                const tabsContainer = document.querySelector('.tabs-container');
+                const tabOffset = tab.offsetLeft - tabsContainer.offsetWidth / 2 + tab.offsetWidth / 2;
+                tabsContainer.scrollLeft = tabOffset;
             });
         });
 
