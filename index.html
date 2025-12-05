@@ -133,32 +133,9 @@
             fill: #e21a1a;
         }
 
-        .tab-content {
-            padding: 16px;
-        }
-
-        .tab-pane {
-            display: none;
-            text-align: center;
-            font-size: 20px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            color: rgba(255, 255, 255, 0.85);
-        }
-
-        .tab-pane.active {
-            display: block;
-        }
-
-        .control-code {
-            font-size: 16px;
-            font-weight: 500;
-            color: rgba(142, 142, 147, 0.85);
-        }
-
         .ticket-container {
             width: 100%;
-            max-width: 500px; /* Увеличил с 420px до 500px */
+            max-width: 500px;
             display: flex;
             flex-direction: column;
             word-wrap: break-word;
@@ -189,37 +166,28 @@
             margin-bottom: 6px;
         }
 
-        .header .duration {
-            font-size: 14px;
-            opacity: 0.8;
+        /* Стили для основного контента */
+        .main-content {
+            padding: 16px;
+            display: block;
         }
 
-        .ticket-number {
-            background-color: transparent;
-            padding: 24px 16px;
-            text-align: center;
-            border-bottom: none;
+        .main-content.hidden {
+            display: none;
         }
 
-        .number {
-            font-size: 28px;
-            font-weight: 500;
-            letter-spacing: normal;
-            color: rgba(255, 255, 255, 0.85);
-            margin-bottom: 4px;
-            word-spacing: normal;
-            word-break: keep-all;
-            overflow-wrap: normal;
+        /* Стили для контента контроля (QR-код) */
+        .control-content {
+            padding: 16px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
         }
 
-        .control {
-            font-size: 16px;
-            color: rgba(142, 142, 147, 0.85);
-            font-weight: 500;
-        }
-
-        .details {
-            padding: 8px 16px 12px;
+        .control-content.active {
+            display: flex;
         }
 
         .row-block {
@@ -256,8 +224,7 @@
             word-wrap: break-word;
             word-break: normal;
             overflow-wrap: break-word;
-            /* Увеличиваем максимальную ширину для переноса */
-            max-width: calc(100% - 48px); /* Учитываем ширину иконки + отступ */
+            max-width: calc(100% - 48px);
             width: auto;
         }
 
@@ -266,13 +233,6 @@
             color: rgba(142, 142, 147, 0.85);
             margin-bottom: 4px;
             word-break: keep-all;
-        }
-
-        .row-block .carrier-value {
-            color: rgba(36, 129, 204, 0.9);
-            font-size: 20px;
-            font-weight: 600;
-            word-break: normal;
         }
 
         .row-block .route-number {
@@ -285,92 +245,37 @@
             overflow-wrap: break-word;
             hyphens: auto;
             line-height: 1.3;
-            /* Увеличиваем максимальную ширину для текста маршрута */
             max-width: 100%;
             display: inline-block;
         }
 
-        .row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 18px;
-            padding-bottom: 18px;
-            border-bottom: 1px solid rgba(58, 72, 89, 0.7);
+        /* Стили для QR-кода */
+        .qr-image {
+            max-width: 320px;
+            width: 100%;
+            height: auto;
+            margin: 5px auto;
+            display: block;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
         }
 
-        .row:last-of-type {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .label {
-            font-size: 14px;
-            color: rgba(142, 142, 147, 0.85);
-            width: 40%;
-        }
-
-        .value {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.85);
-            font-weight: 500;
-            width: 60%;
-            text-align: right;
-        }
-
-        .carrier-value {
-            color: rgba(36, 129, 204, 0.9);
-            font-size: 17px;
-        }
-
-        .route {
-            font-size: 17px;
-            line-height: 1.4;
-            color: rgba(255, 255, 255, 0.85);
-        }
-
-        .qr-section {
-            text-align: center;
-            margin: 20px 0;
-            padding: 16px;
-            background-color: transparent;
-            border-radius: 0;
-        }
-
-        .qr-label {
-            font-size: 14px;
-            color: rgba(142, 142, 147, 0.85);
-            margin-bottom: 8px;
-        }
-
-        .qr-code {
-            font-size: 18px;
-            letter-spacing: normal;
-            padding: 12px;
-            background-color: transparent;
-            border-radius: 0;
+        .qr-number-display {
+            font-size: 30px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+            margin-top: 25px;
+            letter-spacing: 1.5px;
+            padding: 15px 25px;
             display: inline-block;
-            color: rgba(255, 255, 255, 0.85);
         }
 
-        .price {
-            color: rgba(226, 26, 26, 0.9);
-            font-size: 18px;
-        }
-
-        .date-time {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .date-time .label,
-        .date-time .value {
-            width: auto;
-            text-align: left;
-        }
-
-        .date-time > div {
-            width: 48%;
+        .control-notice {
+            font-size: 15px;
+            color: rgba(142, 142, 147, 0.85);
+            margin-top: 20px;
+            max-width: 300px;
+            line-height: 1.5;
+            text-align: center;
         }
 
         .close-btn {
@@ -460,9 +365,17 @@
                 line-height: 1.2;
             }
 
-            /* На маленьких экранах делаем контентный блок еще шире */
             .row-block-content {
-                max-width: calc(100% - 40px); /* Уменьшаем отступ для иконки */
+                max-width: calc(100% - 40px);
+            }
+
+            .qr-image {
+                max-width: 240px;
+            }
+
+            .qr-number-display {
+                font-size: 22px;
+                padding: 12px 20px;
             }
         }
 
@@ -476,7 +389,16 @@
             }
 
             .row-block-content {
-                max-width: calc(100% - 36px); /* Еще уменьшаем для очень узких экранов */
+                max-width: calc(100% - 36px);
+            }
+
+            .qr-image {
+                max-width: 210px;
+            }
+
+            .qr-number-display {
+                font-size: 20px;
+                padding: 10px 18px;
             }
         }
 
@@ -497,47 +419,6 @@
             word-wrap: break-word;
             word-break: normal;
             overflow-wrap: break-word;
-        }
-
-        .icons-x2 .tab-icon {
-            width: 36px;
-            height: 36px;
-        }
-        .icons-x2 .row-block-icon {
-            width: 48px;
-            height: 48px;
-        }
-        .icons-x2 .row-block-icon svg {
-            width: 40px;
-            height: 40px;
-        }
-
-        .icons-small .tab-icon {
-            width: 18px;
-            height: 18px;
-        }
-        .icons-small .row-block-icon {
-            width: 24px;
-            height: 24px;
-        }
-        .icons-small .row-block-icon svg {
-            width: 20px;
-            height: 20px;
-        }
-
-        .icons-blue .tab-icon svg,
-        .icons-blue .row-block-icon svg {
-            fill: rgba(36, 129, 204, 0.9);
-        }
-
-        .icons-red .tab-icon svg,
-        .icons-red .row-block-icon svg {
-            fill: rgba(226, 26, 26, 0.9);
-        }
-
-        .icons-green .tab-icon svg,
-        .icons-green .row-block-icon svg {
-            fill: rgba(46, 204, 113, 0.9);
         }
     </style>
 </head>
@@ -568,7 +449,8 @@
                     </div>
                 </div>
 
-                <div class="details">
+                <!-- Основной контент (детали билета) -->
+                <div class="main-content" id="main-content">
                     <div class="row-block">
                         <div class="row-block-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><title>User-police SVG Icon</title><path fill="none" stroke="currentColor" stroke-width="2" d="M16 14c2.374 1.183 4 3.65 4 7v2H4v-2c0-3.354 1.631-5.825 4-7m4 1c3.26 0 5.903-2.686 5.903-5.999c0-.702.218-1.375 0-2.001M6.093 7c-.21.615 0 1.313 0 2.001C6.093 12.314 8.738 15 12 15M6 8h12l3-4c-1.912-1.735-5.21-3-9-3c-3.836 0-7.168 1.296-9 3zm6-3a1 1 0 0 0 1-1h-2a1 1 0 0 0 1 1z"/></svg>
@@ -625,6 +507,13 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Контент для контроля (QR-код) -->
+                <div class="control-content" id="control-content">
+                    <img src="static/photo/qr.jpg" alt="QR-код билета" class="qr-image">
+                    <div class="qr-number-display">№ 1 326 741 863</div>
+
+                </div>
             </div>
         </div>
     </div>
@@ -668,6 +557,37 @@
         document.getElementById('time_buy').textContent = `${time_buy}`;
         document.getElementById('company').textContent = `${company}`;
 
+        // Функция для переключения вкладок
+        function switchTab(tabName) {
+            // Переключаем активные кнопки табов
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.getAttribute('data-tab') === tabName) {
+                    tab.classList.add('active');
+                }
+            });
+
+            // Переключаем контент
+            const mainContent = document.getElementById('main-content');
+            const controlContent = document.getElementById('control-content');
+
+            if (tabName === 'number') {
+                mainContent.classList.remove('hidden');
+                controlContent.classList.remove('active');
+            } else if (tabName === 'control') {
+                mainContent.classList.add('hidden');
+                controlContent.classList.add('active');
+            }
+
+            // Прокручиваем к выбранному табу
+            const activeTab = document.querySelector(`.tab[data-tab="${tabName}"]`);
+            if (activeTab) {
+                const tabsContainer = document.querySelector('.tabs-container');
+                const tabOffset = activeTab.offsetLeft - tabsContainer.offsetWidth / 2 + activeTab.offsetWidth / 2;
+                tabsContainer.scrollLeft = tabOffset;
+            }
+        }
+
         // Функция для корректировки переноса текста с увеличенной шириной для маршрута
         function adjustTextWrapping() {
             const busElement = document.getElementById('bus');
@@ -709,14 +629,6 @@
                     busElement.style.lineHeight = '1.3';
                 }
             }
-
-            // Автоматически прокручиваем к активному табу если нужно
-            const activeTab = document.querySelector('.tab.active');
-            if (activeTab) {
-                const tabsContainer = document.querySelector('.tabs-container');
-                const tabOffset = activeTab.offsetLeft - tabsContainer.offsetWidth / 2 + activeTab.offsetWidth / 2;
-                tabsContainer.scrollLeft = tabOffset;
-            }
         }
 
         // Инициализация таймера
@@ -748,14 +660,8 @@
         // Обработка переключения табов
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', () => {
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
                 const tabId = tab.getAttribute('data-tab');
-
-                // Прокручиваем к выбранному табу
-                const tabsContainer = document.querySelector('.tabs-container');
-                const tabOffset = tab.offsetLeft - tabsContainer.offsetWidth / 2 + tab.offsetWidth / 2;
-                tabsContainer.scrollLeft = tabOffset;
+                switchTab(tabId);
             });
         });
 
