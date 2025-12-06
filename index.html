@@ -479,7 +479,7 @@
                         </div>
                         <div class="row-block-content">
                             <div class="label">Стоимость</div>
-                            <div class="route-number">1 шт., Полный, 48.00 ₽</div>
+                            <div class="route-number" id="cost">1 шт., Полный, 48.00 ₽</div>
                         </div>
                     </div>
 
@@ -534,7 +534,8 @@
                 arg2: params.get('arg2') || 'не указан',
                 date_buy: params.get('date_buy') || 'не указан',
                 time_buy: params.get('time_buy') || 'не указан',
-                company: params.get('company') || 'не указан'
+                company: params.get('company') || 'не указан',
+                cost: params.get('cost') || 'не указан'
             };
         }
 
@@ -545,6 +546,8 @@
         const date_buy = queryParams.date_buy;
         const time_buy = queryParams.time_buy;
         const company = queryParams.company;
+        const cost = queryParams.cost;
+
 
         // Инициализация Telegram Web App
         const tg = window.Telegram.WebApp;
@@ -556,6 +559,7 @@
         document.getElementById('date_buy').textContent = `${date_buy}`;
         document.getElementById('time_buy').textContent = `${time_buy}`;
         document.getElementById('company').textContent = `${company}`;
+        document.getElementById('cost').textContent = `${cost}`;
 
         // Функция для переключения вкладок
         function switchTab(tabName) {
